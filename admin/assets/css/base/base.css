@@ -26,6 +26,25 @@ body {
 	flex-direction: column;
 }
 
+.cabecalho__link, th, h1{
+
+	color: var(--cor-primaria);
+	font-size: 1.2rem;
+
+}
+
+td {
+	color: var(--cor-cliente);
+
+}
+
+input {
+	color: var(--cor-cliente);
+	font-weight: 500;
+
+}
+
+
 @media(min-width: 800px) {
   .container {
 		padding-right: 2.5rem;

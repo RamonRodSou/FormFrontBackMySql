@@ -3,7 +3,7 @@
 
     width: 100%;
 
-    background-color: var(--cor-contraste-claro);
+    background-color: var(--cor-table);
     border-radius: 10px;
     box-shadow: var(--sombra);
 
@@ -39,6 +39,7 @@
     text-align: right;
 }
 
+
 .tabela__coluna--p {
     width: 20%;
 }
@@ -48,8 +49,9 @@
 }
 
 .tabela__coluna--g {
-    width: 50%;
+    width : 50%;
 }
+
 
 .tabela tr:last-of-type td {
     padding-bottom: 1.75rem;
@@ -67,4 +69,24 @@
 
 .td {
     padding: 1rem;
+}
+
+
+.tdEmail {
+    padding: 0;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+
+@media screen and (max-width: 560px) {
+
+    .tabela th {
+        font-size: 1rem;
+    }
+    
+
+    .tabela__botoes-controle li:first-of-type {
+        margin-right: 0.4rem;
+    }
 }

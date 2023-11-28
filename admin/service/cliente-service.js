@@ -1,16 +1,35 @@
 const listaClientes = () => {
-    return fetch('https://my-json-server.typicode.com/RamonRodSou/formcruddb/profile')
+    return fetch('http://localhost:8080/listar', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(resposta => {
+        if (resposta.ok) {
+            return resposta.json();
+        }
+        throw new Error('Não foi possível listar os clientes');
+    });
+}
+
+const detalhaCliente = (id) => {
+    return fetch(`http://localhost:8080/usuario/${id}`,  {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
     .then ( resposta => {
         if (resposta.ok){
             return resposta.json() // Pegando a Resposta, transformnando em um JavaScript válido e retornando
         }
-        throw new Error ('Não foi possivel listar os clientes')
+        throw new Error ('Não foi possivel detalhar clientes')
     })
-
-
 }
+
 const criaCliente = (nome, email) => {
-    return fetch('https://my-json-server.typicode.com/RamonRodSou/formcruddb/profile', {
+    return fetch('http://localhost:8080/cadastrar', {
         method: 'POST',   // Uma postagem normal, a gente escreve e mandando pro servidor, e dps aparece na timelime
         headers: {
             'Content-Type' : 'application/json'
@@ -28,29 +47,8 @@ const criaCliente = (nome, email) => {
     })
 }
 
-const removeCliente = (id) => {
-    return fetch(`https://my-json-server.typicode.com/RamonRodSou/formcruddb/profile/${id}`, {
-        method: "DELETE",
-    }).then ( resposta => {
-        if (!resposta.ok){
-            throw new Error ('Não foi possivel remover um clientes')
-            }
-        })
-    
-}
-
-const detalhaCliente = (id) => {
-    return fetch(`https://my-json-server.typicode.com/RamonRodSou/formcruddb/profile/${id}`)
-    .then ( resposta => {
-        if (resposta.ok){
-            return resposta.json() // Pegando a Resposta, transformnando em um JavaScript válido e retornando
-        }
-        throw new Error ('Não foi possivel detalhar clientes')
-    })
-}
-
-const atualizaCliente = (id, nome, email) => {
-    return fetch(`https://my-json-server.typicode.com/RamonRodSou/formcruddb/profile/${id}`, {
+const atualizaCliente = (nome, email, id) => {
+    return fetch(`http://localhost:8080/atualizar/${id}`, {
         method: 'PUT',
         headers: { // Passando pro cabeçalho indicando qual o conteúdo
             'Content-type' : 'application/json'
@@ -66,6 +64,17 @@ const atualizaCliente = (id, nome, email) => {
         }
         throw new Error ('Não foi possivel atualizar um clientes')
     })
+}
+
+const removeCliente = (id) => {
+    return fetch(`http://localhost:8080/delete/${id}`, {
+        method: "DELETE",
+    }).then ( resposta => {
+        if (!resposta.ok){
+            throw new Error ('Não foi possivel remover um clientes')
+            }
+        })
+    
 }
 
 export const clienteService = {

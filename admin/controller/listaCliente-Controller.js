@@ -5,7 +5,7 @@ const criaNovaLinha = (nome, email, id) => {
     const linhaNovoCliente = document.createElement('tr')
     const conteudo = `
         <td class="td" data-td>${nome}</td>
-            <td>${email}</td>
+            <td class="tdEmail">${email}</td>
             <td>
                 <ul class="tabela__botoes-controle">
                     <li><a href="../admin/telas/edita_cliente.html?id=${id}" class="botao-simples botao-simples--editar">Editar</a></li>
@@ -29,6 +29,7 @@ tabela.addEventListener('click', async(evento)=> {
             const linhaCliente = evento.target.closest('[data-id]') // mais proximo da data-id
             let id = linhaCliente.dataset.id
             await clienteService.removeCliente(id)
+            location.reload();
         }
         catch (erro){ // caso não consiga. vai ser direcionado para tela de erro
             console.log(erro)
@@ -38,16 +39,15 @@ tabela.addEventListener('click', async(evento)=> {
 })
 
 
-const render = async() => {
+const render = async () => {
     try {
-        const listaClientes = await clienteService.listaClientes()  // Depois de executar a função listaCliente e pegar a promesa ele vai exibiti isso na tela.
+        const listaClientes = await clienteService.listaClientes();
         listaClientes.forEach(elemento => {
-            tabela.appendChild(criaNovaLinha(elemento.nome, elemento.email, elemento.id))// colocando o elemento filho que  seria a tabela " TR"  dentro do elemento pai " data-tabela"
-        })
-    }
-    catch (erro){ // caso não consiga. vai ser direcionado para tela de erro
-        console.log(erro)
-        window.location.href = '../telas/erro.html'
+            tabela.appendChild(criaNovaLinha(elemento.nome, elemento.email, elemento.id));
+        });
+    } catch (erro) {
+        console.log(erro);
+        //window.location.href = '../telas/erro.html';
     }
 }
 

@@ -1,16 +1,19 @@
 import { clienteService } from "../service/cliente-service.js"
 
-(async () => {
-    const pegaURL = new URL (window.location)
-    const id = pegaURL.searchParams.get('id')
+    const pegaURL = new URL(window.location.href); // Pega a URL do Site
+    const id = pegaURL.searchParams.get('id')  // pega o id, importante passar dessa forma html?id=3
+    console.log('ID:', id);
     
     const inputNome = document.querySelector ('[data-nome]')
     const inputEmail = document.querySelector ('[data-email]')
     
     try{
         const dados = await clienteService.detalhaCliente(id)
-        inputNome.value = dados.nome
-        inputEmail.value = dados.email
+
+        dados.forEach(element => {
+            inputEmail.value = element.email
+            inputNome.value = element.nome
+        });
     }
     catch (erro){ // caso não consiga. vai ser direcionado para tela de erro
         console.log(erro)
@@ -24,8 +27,8 @@ import { clienteService } from "../service/cliente-service.js"
 
         try {
 
-            await clienteService.atualizaCliente(id, inputNome.value, inputEmail.value)
-            window.location.href ="../telas/edicao_concluida.html"
+            await clienteService.atualizaCliente(inputNome.value, inputEmail.value, id)
+            window.location.href ="../telas/edicao_concluida.html" 
         }
 
         catch (erro){ // caso não consiga. vai ser direcionado para tela de erro
@@ -35,4 +38,4 @@ import { clienteService } from "../service/cliente-service.js"
     
 
     })
-}) ()
+
